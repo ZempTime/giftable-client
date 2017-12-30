@@ -21,10 +21,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="./mixins/gift-list-mixin.html">
 
 <link rel="lazy-import" href="my-view1.html">
-<link rel="lazy-import" href="my-view2.html">
-<link rel="lazy-import" href="my-view3.html">
 <link rel="lazy-import" href="my-view404.html">
 
 <dom-module id="my-app">
@@ -116,7 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class MyApp extends Polymer.Element {
+    class MyApp extends GiftListMixin(Polymer.Element) {
       static get is() { return 'my-app'; }
 
       static get properties() {
@@ -131,7 +130,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // This shouldn't be neccessary, but the Analyzer isn't picking up
           // Polymer.Element#rootPath
           rootPath: String,
+          gifts: {
+            type: Array
+          }
         };
+      }
+
+      connectedCallback() {
+          super.connectedCallback();
+          var self = this;
+          // request data
+          this.dispatch('getGifts');
       }
 
       static get observers() {

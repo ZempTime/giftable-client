@@ -1,0 +1,26 @@
+<link rel="import" href="/../../bower_components/polymer-redux/polymer-redux.html">
+<script src="/../../node_modules/redux/dist/redux.js"></script>
+<link rel="import" href="./gift-data-service.html">
+
+<script>
+    const initialState = {
+      user: null,
+      gifts: []
+    };
+    const reducer = (state = initialState, action) => {
+        switch (action.type) {
+            case 'GET_GIFTS_RECEIVED':
+                console.log(action.data);
+                return Object.assign({}, state, { gifts: action.data });
+            default:
+                return state;
+        }
+    };
+
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+    const store = Redux.createStore(reducer, /* preloadedState, */ composeEnhancers(
+      Redux.applyMiddleware(dataService))
+    );
+    ReduxMixin = PolymerRedux(store);
+
+</script>

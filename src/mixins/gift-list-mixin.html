@@ -1,0 +1,26 @@
+<link rel="import" href="./gift-redux-store.html">
+<script>
+	GiftListMixin = Parent => class GiftListMixin extends ReduxMixin(Parent) {
+		static get properties() {
+			return {
+				gifts: {
+					type: Array,
+					statePath: 'gifts'
+				},
+				user: {
+					type: Object,
+					statePath: 'user'
+				}
+			};
+		}
+		static get actions() {
+			return {
+				getGifts() {
+					return {
+						type: 'GET_GIFTS_REQUESTED'
+					}
+				}
+			};
+		}
+	};
+</script>

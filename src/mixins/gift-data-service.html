@@ -1,0 +1,32 @@
+<script>
+	const dataService = store => next => action => {
+		/*
+		Pass all actions through by default
+		*/
+		next(action)
+		switch (action.type) {
+			case 'GET_GIFTS_REQUESTED':
+			var query = `allGifts{
+										 name
+										 note
+									 }`;
+				fetch(`http://localhost:3000/graphql?query={${query}}`)
+					.then((resp) => resp.json())
+					.then(function (dataResults) {
+						let data = dataResults.data;
+						next({
+							type: 'GET_GIFTS_RECEIVED',
+							data
+						})
+					});
+				break
+			/*
+			Do nothing if the action does not interest us
+			*/
+			default:
+				break
+		}
+	};
+
+// export default dataService
+</script>
