@@ -20,13 +20,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="my-icons.html">
-<link rel="import" href="./mixins/gift-list-mixin.html">
+<link rel="import" href="./mixins/giftable-list-mixin.html">
 
-<link rel="lazy-import" href="my-view1.html">
-<link rel="lazy-import" href="my-view404.html">
+<link rel="lazy-import" href="giftable-view1.html">
+<link rel="lazy-import" href="giftable-view404.html">
 
-<dom-module id="my-app">
+<dom-module id="giftable-app">
   <template>
     <style>
       :host {
@@ -85,8 +84,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="[[rootPath]]view1">View One</a>
-          <a name="view2" href="[[rootPath]]view2">View Two</a>
-          <a name="view3" href="[[rootPath]]view3">View Three</a>
         </iron-selector>
       </app-drawer>
 
@@ -105,18 +102,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
+          <giftable-view1 name="view1"></giftable-view1>
+          <giftable-view404 name="view404"></giftable-view404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
   </template>
 
   <script>
-    class MyApp extends GiftListMixin(Polymer.Element) {
-      static get is() { return 'my-app'; }
+    class GiftableApp extends Polymer.Element {
+      static get is() { return 'giftable-app'; }
 
       static get properties() {
         return {
@@ -130,17 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // This shouldn't be neccessary, but the Analyzer isn't picking up
           // Polymer.Element#rootPath
           rootPath: String,
-          gifts: {
-            type: Array
-          }
         };
-      }
-
-      connectedCallback() {
-          super.connectedCallback();
-          var self = this;
-          // request data
-          this.dispatch('getGifts');
       }
 
       static get observers() {
@@ -162,7 +147,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        var resolvedPageUrl = this.resolveUrl('giftable-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,
             null,
@@ -175,6 +160,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
 
-    window.customElements.define(MyApp.is, MyApp);
+    window.customElements.define(GiftableApp.is, GiftableApp);
   </script>
 </dom-module>

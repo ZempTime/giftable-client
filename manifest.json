@@ -1,7 +1,7 @@
 {
-  "name": "My App",
-  "short_name": "My App",
-  "description": "My App description",
+  "name": "Giftable",
+  "short_name": "Giftable",
+  "description": "Give better gifts. Get better gifts.",
   "icons": [
     {
       "src": "images/manifest/icon-192x192.png",

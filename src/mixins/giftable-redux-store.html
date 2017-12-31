@@ -1,6 +1,6 @@
 <link rel="import" href="/../../bower_components/polymer-redux/polymer-redux.html">
 <script src="/../../node_modules/redux/dist/redux.js"></script>
-<link rel="import" href="./gift-data-service.html">
+<link rel="import" href="./giftable-data-service.html">
 
 <script>
     const initialState = {
@@ -19,7 +19,7 @@
 
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
     const store = Redux.createStore(reducer, /* preloadedState, */ composeEnhancers(
-      Redux.applyMiddleware(dataService))
+      Redux.applyMiddleware(giftableDataService))
     );
     ReduxMixin = PolymerRedux(store);
 
